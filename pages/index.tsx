@@ -1,5 +1,6 @@
 import DietNewsletter from "../components/DietNewsletter";
 import DashboardData from "../components/golden ring components/dashboardData";
+import Test from "../components/golden ring components/Test";
 import Headphones from "../components/Headphones";
 import Homepage from "../components/Homepage";
 import PricingCard from "../components/PricingCard";
@@ -17,7 +18,8 @@ const HomePage = () => {
     // </div>
     // <Headphones/>
     // <Homepage />
-    <DashboardData />
+    // <DashboardData />
+    <Test />
   );
 };
 

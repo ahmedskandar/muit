@@ -76,7 +76,7 @@ const DashboardData = () => {
       </section>
 
       {/**ChartCards */}
-      <section className="flex flex-col mt-7 gap-5 md:flex-row">
+      <section className="flex flex-col mt-7 gap-5 h-80 mb-5 lg:flex-row">
         <ChartCard />
         <GraphCard />
       </section>
