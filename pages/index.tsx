@@ -18,8 +18,8 @@ const HomePage = () => {
     // </div>
     // <Headphones/>
     // <Homepage />
-    // <DashboardData />
-    <Test />
+    <DashboardData />
+    // <Test />
   );
 };
 

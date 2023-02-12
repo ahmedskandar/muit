@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function Test() {
+   const [winReady, setwinReady] = useState(false);
+   useEffect(() => {
+     setwinReady(true);
+   }, []);
   const [data, setData] = useState([
     {
       id: 1,
@@ -23,17 +27,17 @@ function Test() {
 
   return (
     // Contanier div
-    <div className="bg-yellow-500 w-[50%] mx-auto flex justify-center">
+    <div className="bg-yellow-500 w-[50%] h-[400px] mx-auto flex justify-center">
       {/*Area which drag grop occurs*/}
       <DragDropContext onDragEnd={handleDragEnd}>
         {/*Area that can be dropped into*/}
-        <Droppable droppableId="list">
+        {winReady ? <Droppable droppableId="list">
           {/*List*/}
           {(provided) => (
             <ul
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className=""
+              className="flex gap-3 items-start"
             >
               {data.map((item, index) => {
                 return (
@@ -49,7 +53,7 @@ function Test() {
               })}
             </ul>
           )}
-        </Droppable>
+        </Droppable>: null}
       </DragDropContext>
     </div>
   );
