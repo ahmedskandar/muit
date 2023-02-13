@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import InfoCard2 from "./InfoCard2";
 
 const DashboardData2 = () => {
+  const [windowWidth, setWindowWidth] = useState<number>();
+  const [direction, setDirection] = useState<string>()
+  
+  
+  useEffect(() => {
+      if (typeof window !== "undefined") {
+    setWindowWidth(window.innerWidth)
+  if(windowWidth !== undefined && windowWidth < 768){
+        setDirection("column")
+        
+    } else {
+        setDirection("row")
+    }
+  };
+  }, [])
+
+
+  
+
+console.log(direction)
+
   const lists = [
     {
       id: 1,
@@ -33,39 +54,47 @@ const DashboardData2 = () => {
     },
   ];
 
+  const [winReady, setwinReady] = useState(false);
+  useEffect(() => {
+    setwinReady(true);
+  }, []);
+
   return (
     <div>
       <DragDropContext>
-        <Droppable direction="row" droppableId="characters">
-          {(provided) => (
-            <ul
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="flex flex-row w-full"
-            >
-              {lists.map((list, index) => {
-                return (
-                  <Draggable
-                    key={list.id}
-                    draggableId={list.id.toString()}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <div className="w-full m-5"
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                      >
-                        <InfoCard2 />
-                      </div>
-                    )}
-                  </Draggable>
-                );
-              })}
-              {provided.placeholder}
-            </ul>
-          )}
-        </Droppable>
+        {winReady ? (
+          <Droppable droppableId="characters">
+            {(provided) => (
+              <ul
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="flex flex-col items-center w-full md:flex-row"
+              >
+                {lists.map((list, index) => {
+                  return (
+                    <Draggable
+                      key={list.id}
+                      draggableId={list.id.toString()}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          className="w-[90%] my-5 md:w-full md:m-5"
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                        >
+                          <InfoCard2 />
+                        </div>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        ) : null}
       </DragDropContext>
     </div>
   );
