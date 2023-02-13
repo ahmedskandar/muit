@@ -3,26 +3,18 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import InfoCard2 from "./InfoCard2";
 
 const DashboardData2 = () => {
-  const [windowWidth, setWindowWidth] = useState<number>();
-  const [direction, setDirection] = useState<string>()
-  
-  
-  useEffect(() => {
-      if (typeof window !== "undefined") {
-    setWindowWidth(window.innerWidth)
-  if(windowWidth !== undefined && windowWidth < 768){
-        setDirection("column")
-        
-    } else {
-        setDirection("row")
-    }
-  };
-  }, [])
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+  //   const [direction, setDirection] = useState<string>()
 
+  //   useEffect(() => {
+  //       if (typeof window !== "undefined") {
+  //     setWindowWidth(window.innerWidth)
+  //       }
+  //   }, [window.innerWidth])
 
-  
-
-console.log(direction)
+  let direction = windowWidth > 768 ? "horizontal" : "vertical";
 
   const lists = [
     {
@@ -53,24 +45,33 @@ console.log(direction)
       ],
     },
   ];
+  const [listsState, setListsState] = useState(lists);
 
   const [winReady, setwinReady] = useState(false);
   useEffect(() => {
     setwinReady(true);
   }, []);
 
+  const onDragEndHandler = (result: any) => {
+    const items = Array.from(listsState);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setListsState(items);
+  };
+
   return (
     <div>
-      <DragDropContext>
+      <DragDropContext onDragEnd={onDragEndHandler}>
         {winReady ? (
-          <Droppable droppableId="characters">
+          <Droppable direction={direction} droppableId="characters">
             {(provided) => (
               <ul
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 className="flex flex-col items-center w-full md:flex-row"
               >
-                {lists.map((list, index) => {
+                {listsState.map((list, index) => {
                   return (
                     <Draggable
                       key={list.id}
@@ -84,7 +85,7 @@ console.log(direction)
                           {...provided.draggableProps}
                           ref={provided.innerRef}
                         >
-                          <InfoCard2 />
+                          <InfoCard2 list={list} />
                         </div>
                       )}
                     </Draggable>

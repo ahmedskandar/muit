@@ -2,14 +2,14 @@ import React from 'react'
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 
-const InfoCard2 = () => {
+const InfoCard2 = ({list}: any) => {
   return (
     <div className="bg-white shadow-md border rounded-lg text-left w-full hover:shadow-lg hover:scale-105 duration-200">
       <div
         className="p-2 font-bold text-white bg-gradient-to-b from-yellow-600 to-yellow-500
        rounded-t-lg flex items-center gap-4"
       >
-        <h2>Heading 1</h2>
+        <h2>{list.heading}</h2>
         {/* <button>
           <NotificationsIcon />
           <sup className=" bg-red-500 rounded-full px-1 -ml-2.5">1</sup>
