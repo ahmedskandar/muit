@@ -31,7 +31,7 @@ function Test() {
       {/*Area which drag grop occurs*/}
       <DragDropContext onDragEnd={handleDragEnd}>
         {/*Area that can be dropped into*/}
-        {winReady ? <Droppable droppableId="list">
+        {winReady ? <Droppable direction="horizontal" droppableId="list">
           {/*List*/}
           {(provided) => (
             <ul

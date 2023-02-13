@@ -4,9 +4,9 @@ import React from 'react'
 
 
 
-const InfoCard: React.FC = React.forwardRef(({ list }: any, ref: any) => {
+const InfoCard: React.FC = ({ list }: any) => {
   return (
-    <div ref={ref} className="shadow-md border rounded-lg text-left w-full hover:shadow-lg hover:scale-105 duration-200">
+    <div  className="bg-white shadow-md border rounded-lg text-left w-full hover:shadow-lg hover:scale-105 duration-200">
       <div
         className="p-2 font-bold text-white bg-gradient-to-b from-yellow-600 to-yellow-500
        rounded-t-lg flex items-center gap-4"
@@ -39,6 +39,6 @@ const InfoCard: React.FC = React.forwardRef(({ list }: any, ref: any) => {
       </div>
     </div>
   );
-});
+};
 
 export default InfoCard;

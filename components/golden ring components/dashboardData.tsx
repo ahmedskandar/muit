@@ -59,12 +59,12 @@ const DashboardData = () => {
         onDragUpdate={onDragUpdate}
       >
         {winReady ? (
-          <Droppable droppableId="row">
+          <Droppable direction="horizontal" droppableId="row">
             {(droppableProvided) => (
               <section
                 {...droppableProvided.droppableProps}
                 ref={droppableProvided.innerRef}
-                className="flex flex-col gap-5 lg:flex-row lg:justify-between xl:gap-7"
+                className="flex flex-col lg:flex-row lg:justify-between"
               >
                 {lists.map((list, index) => (
                   <Draggable
@@ -74,7 +74,7 @@ const DashboardData = () => {
                   >
                     {(draggableProvided, draggableSnapshot) => (
                       <div
-                      className="w-full"
+                        className="w-[300px] m-2"
                         {...draggableProvided.dragHandleProps}
                         {...draggableProvided.draggableProps}
                         ref={draggableProvided.innerRef}
