@@ -53,7 +53,7 @@ Chart.register(CategoryScale);
       >
         Weekly Sale Comparison
       </div>
-      <div className="m-5 h-[70%]">
+      <div className="m-5 h-[80%]">
       <Bar data={userData} />
 
       </div>
