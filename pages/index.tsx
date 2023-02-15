@@ -7,6 +7,7 @@ import Headphones from "../components/Headphones";
 import Homepage from "../components/Homepage";
 import PricingCard from "../components/PricingCard";
 import DashboardData2 from "../components/golden ring components/DashboardData2";
+import Example from "../components/golden ring components/CarouselUI";
 
 const HomePage = () => {
   return (

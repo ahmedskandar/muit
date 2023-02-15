@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import CarouselUI from "./CarouselUI";
+import ChartCard from "./PieChartUI";
+import GraphCard from "./BarChartUI";
 import InfoCard2 from "./InfoCard2";
+import PieChartUI from "./PieChartUI";
+import BarChartUI from "./BarChartUI";
 
 const DashboardData2 = () => {
   const [windowWidth, setWindowWidth] = useState<number>(
@@ -14,7 +19,7 @@ const DashboardData2 = () => {
   //       }
   //   }, [window.innerWidth])
 
-  let direction = windowWidth > 768 ? "horizontal" : "vertical";
+  let direction = windowWidth! > 768 ? "horizontal" : "vertical";
 
   const lists = [
     {
@@ -53,6 +58,7 @@ const DashboardData2 = () => {
   }, []);
 
   const onDragEndHandler = (result: any) => {
+    if (!result.destination) return;
     const items = Array.from(listsState);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
@@ -61,43 +67,51 @@ const DashboardData2 = () => {
   };
 
   return (
-    <div>
-      <DragDropContext onDragEnd={onDragEndHandler}>
-        {winReady ? (
-          <Droppable direction={direction} droppableId="characters">
-            {(provided) => (
-              <ul
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                className="flex flex-col items-center w-full md:flex-row"
-              >
-                {listsState.map((list, index) => {
-                  return (
-                    <Draggable
-                      key={list.id}
-                      draggableId={list.id.toString()}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          className="w-[90%] my-5 md:w-full md:m-5"
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          ref={provided.innerRef}
-                        >
-                          <InfoCard2 list={list} />
-                        </div>
-                      )}
-                    </Draggable>
-                  );
-                })}
-                {provided.placeholder}
-              </ul>
-            )}
-          </Droppable>
-        ) : null}
-      </DragDropContext>
-    </div>
+    <>
+      <CarouselUI />
+      <div>
+        <DragDropContext onDragEnd={onDragEndHandler}>
+          {winReady ? (
+            <Droppable direction={direction} droppableId="characters">
+              {(provided) => (
+                <ul
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="flex flex-col items-center w-[90%] mx-auto md:flex-row"
+                >
+                  {listsState.map((list, index) => {
+                    return (
+                      <Draggable
+                        key={list.id}
+                        draggableId={list.id.toString()}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            className="w-[100%] my-5 md:w-[100%] md:w-full md:my-5 md:mr-5"
+                            {...provided.dragHandleProps}
+                            {...provided.draggableProps}
+                            ref={provided.innerRef}
+                          >
+                            <InfoCard2 list={list} />
+                          </div>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          ) : null}
+        </DragDropContext>
+      </div>
+      {/**ChartCards */}
+      <section className="flex flex-col w-[90%] mx-auto mt-7 gap-5 h-80 mb-5 lg:flex-row">
+        <PieChartUI />
+        <BarChartUI />
+      </section>
+    </>
   );
 };
 

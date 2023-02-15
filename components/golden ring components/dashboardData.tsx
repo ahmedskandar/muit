@@ -1,14 +1,13 @@
-import ChartCard from "./ChartCard";
-import GraphCard from "./GraphCard";
+import ChartCard from "./PieChartUI";
+import GraphCard from "./BarChartUI";
 import InfoCard from "./InfoCard";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
 const DashboardData = () => {
-
-      const [winReady, setwinReady] = useState(false);
-      useEffect(() => {
-        setwinReady(true);
-      }, []);
+  const [winReady, setwinReady] = useState(false);
+  useEffect(() => {
+    setwinReady(true);
+  }, []);
 
   const onDragEnd = (result: any) => {
     const { source, destination } = result;
